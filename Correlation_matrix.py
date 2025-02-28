@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from pandas.plotting import scatter_matrix
 import seaborn as sns
+import scipy as sc
 
 def normalize_data(df):
     # We extract a list of mean values for each column
@@ -19,7 +20,14 @@ def normalize_data(df):
     #We divide each column with the corresponding STD.
     for i in df_normalized.columns:
         df_normalized[i] = df_normalized[i]/df_normalized[i].std(axis=0)
+
+
+    print(df_normalized.describe())
     return df_normalized
+
+
+def extract_relevant_vals(df):
+    for 
 
 
 def plot_heatmap(df):
@@ -28,6 +36,7 @@ def plot_heatmap(df):
             square = True, linewidths=1, annot=True, annot_kws={"size": 10})
     plt.tight_layout()
     plt.savefig('correlation_heatmap.png')
+
 
 
 def plot_scatter_matrix(df):
@@ -40,4 +49,4 @@ data = pd.read_csv('cleaned_cleveland.csv',index_col=[0])
 # Firstly, we load in the data into a dataframe.
 df_normal = normalize_data(data)
 
-plot_heatmap(df_normal)
+plot_scatter_matrix(df_normal)
