@@ -1,5 +1,6 @@
 # PCA analysis of the data 
 
+### NOTE PCA looks a little wierd so look into it more, - also consider doing log tranformations. 
 
 #Prior to the PCA analysis, all of the attributes should be standadised, 
 # and investigated for any outlisers, if there is outliers,
@@ -19,6 +20,15 @@ data = pd.read_csv('cleaned_cleveland.csv')
 #Saving the amount of observations
 N = len(data)
 
+#Saving the "num" as the class label
+y = data["num"] 
+#Savinf the diffirent categories of the class label
+C = len(y.unique())  
+
+
+print("C",C)
+print("y",y)
+print("y done")
 #standardizing the data (or normalizing it?)
 # Subtract mean collumn value from each element in each collumn
 stand_data=data.sub(data.mean(axis=0), axis=1)
@@ -53,18 +63,10 @@ plt.ylabel("Variance explained")
 plt.legend(["Individual", "Cumulative", "Threshold"])
 plt.grid()
 plt.savefig('Variance_explained_by_principal_components.png')
-
-
-#******************************************
-
-
-
+ 
 #PCA of first and second principal component 
 
-
 # Project the centered data onto principal component space
-# Note: Make absolutely sure you understand what the @ symbol 
-# does by inspecing the numpy documentation!
 Z = stand_data @ V
 
 # Indices of the principal components to be plotted
@@ -74,16 +76,11 @@ j = 1
 
 # Plot PCA of the data
 f = plt.figure()
-plt.title("NanoNose data: PCA")
-# Z = array(Z)
-for c in range(C):
-    # select indices belonging to class c:
-    class_mask = y == c
-    plt.plot(Z[class_mask, i], Z[class_mask, j], "o", alpha=0.5)
-#plt.legend(classNames)
-plt.xlabel("PC{0}".format(i + 1))
-plt.ylabel("PC{0}".format(j + 1))
-
-# Output result to screen
-plt.show()
-
+plt.title("Heart Disease data: PCA")
+for c in np.unique(y): 
+    class_mask = (y == c).to_numpy()  
+    plt.plot(Z.loc[class_mask, 0], Z.loc[class_mask, 1], "o", alpha=0.5, label=f"Class {c}")
+plt.xlabel("PC1")
+plt.ylabel("PC2")
+plt.legend()
+plt.figsave('PCA_heart_disease_data.png')
