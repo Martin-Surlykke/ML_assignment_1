@@ -12,17 +12,24 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.linalg import svd
+from Correlation_matrix import * #extract_relevant_vals
+
+
+
 
 # read the data and create a dataframe using pandas
 data = pd.read_csv('cleaned_cleveland.csv')
 
+relevant_vals=extract_relevant_vals(data)
+print(relevant_vals.head())
+data = relevant_vals
 
 #Saving the amount of observations
 N = len(data)
 
 #Saving the "num" as the class label
 y = data["num"] 
-#Savinf the diffirent categories of the class label
+#Saving the diffirent categories of the class label
 C = len(y.unique())  
 
 
@@ -62,7 +69,7 @@ plt.xlabel("Principal component")
 plt.ylabel("Variance explained")
 plt.legend(["Individual", "Cumulative", "Threshold"])
 plt.grid()
-plt.savefig('Variance_explained_by_principal_components.png')
+plt.savefig('images/Variance_explained_by_principal_components.png')
  
 #PCA of first and second principal component 
 
@@ -83,4 +90,6 @@ for c in np.unique(y):
 plt.xlabel("PC1")
 plt.ylabel("PC2")
 plt.legend()
-plt.figsave('PCA_heart_disease_data.png')
+plt.savefig('images/PCA_heart_disease_data.png')
+
+print("PCA done")
