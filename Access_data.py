@@ -42,4 +42,7 @@ plt.savefig('histogram_attributes.png')
 print(df.head())
 
 # We save the cleaned data to a new csv file
-df.to_csv('cleaned_cleveland.csv')
+df.to_csv('cleaned_cleveland.csv', index = False)
+
+df_clean = pd.read_csv('cleaned_cleveland.csv')
+print(df_clean.head())
