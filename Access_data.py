@@ -39,5 +39,7 @@ plt.tight_layout()
 df.hist()
 plt.savefig('histogram_attributes.png')
 
+print(df.head())
+
 # We save the cleaned data to a new csv file
 df.to_csv('cleaned_cleveland.csv')
