@@ -83,4 +83,4 @@ for c in np.unique(y):
 plt.xlabel("PC1")
 plt.ylabel("PC2")
 plt.legend()
-plt.figsave('PCA_heart_disease_data.png')
+plt.savefig('images/PCA_heart_disease_data.png')

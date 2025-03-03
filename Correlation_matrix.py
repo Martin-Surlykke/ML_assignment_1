@@ -103,12 +103,20 @@ def continuous_scatter_with_hue(df):
 
     plt.savefig('images/continuous_scatter_with_hue.png')
 
+def boxplot(df):
+    for i in df.columns:
+        fig = plt.fi
+
+
+
+        plt.close()
 
 
 
 
 data = pd.read_csv('cleaned_cleveland.csv',index_col=[0])
-data = normalize_data(data)
 # Firstly, we load in the data into a dataframe.
 
-continuous_scatter_with_hue(data)
+data = normalize_data(data)
+
+boxplot(data)
