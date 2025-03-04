@@ -11,6 +11,8 @@ print(data.describe())
 
 df = pd.DataFrame(data)
 
+
+
 #Checking for missing value
 print("Amount of missing values in the different attributes", (df == "?").sum()) 
 
@@ -36,6 +38,10 @@ print("thal new type", df["thal"].dtype)
 
 
 
+median_ca=df["ca"].median()
+median_thal=df["thal"].median()
+print("median of ca",median_ca)
+print("median of thal",median_thal)
 #Histogram of the different attributes
 plt.figure(figsize=(20,20), dpi=300)
 plt.suptitle('Histogram of the different attributes', fontsize=20)

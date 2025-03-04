@@ -27,7 +27,11 @@ def normalize_data(df):
 
 
 def extract_relevant_vals(df):
-    for 
+    df_relevant = pd.DataFrame()
+    for i in df.columns:
+        if df[i].cov(df['num']) < -0.3 or df[i].cov(df['num']) > 0.3:
+            df_relevant[i] = df[i]
+    return df_relevant
 
 
 def plot_heatmap(df):
