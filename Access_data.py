@@ -40,7 +40,6 @@ print("thal new type", df["thal"].dtype)
 
 safetyCheck = pd.read_csv('cleaned_cleveland.csv')
 
-
 median_ca=df["ca"].median()
 median_thal=df["thal"].median()
 print("median of ca",median_ca)
@@ -52,10 +51,30 @@ plt.tight_layout()
 df.hist()
 plt.savefig('histogram_attributes.png')
 
-print(df.head())
+
+df = df[["age","trestbps","chol","thalach","oldpeak"]]
+
+plt.figure(figsize=(12,7))
+plt.suptitle('Histogram of the different attributes', fontsize=16)
+
+n_attributes = df.shape[1]
+
+n_rows = 1
+n_cols = 5
+
+
+for i, column in enumerate(df.columns):
+    plt.subplot(n_rows, n_cols, i + 1)
+    df[column].hist(bins=15, color='skyblue', edgecolor='black', linewidth=1.5)
+    plt.title(column)
+    plt.grid(False)
+plt.tight_layout(rect=[0, 0, 1, 1])
+
+plt.savefig('histogram_attributes_matrix.png', dpi=300)
+
 
 # We save the cleaned data to a new csv file
 df.to_csv('cleaned_cleveland.csv', index = False)
 
 df_clean = pd.read_csv('cleaned_cleveland.csv')
-print(df_clean.head())
+print(df_clean.columns)
