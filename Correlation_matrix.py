@@ -103,14 +103,6 @@ def continuous_scatter_with_hue(df):
 
     plt.savefig('images/continuous_scatter_with_hue.png')
 
-def boxplot(df):
-    for i in df.columns:
-        fig = plt.fi
-
-
-
-        plt.close()
-
 
 
 
