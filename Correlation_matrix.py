@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
+import numpy as np
 
 def normalize_data(df):
     # We extract a list of mean values for each column
@@ -103,20 +104,47 @@ def continuous_scatter_with_hue(df):
 
     plt.savefig('images/continuous_scatter_with_hue.png')
 
-def boxplot(df):
-    for i in df.columns:
-        fig = plt.fi
+
+def bar_chart_matrix(df):
+    df_for_bar_chart = df[['sex', 'cp', 'fbs', 'restecg', 'exang', 'slope', 'thal', 'num']]
+
+    print(df['thal'].describe())
+
+    fig, axes = plt.subplots(2, 4, figsize=(20, 12))
+
+    label_mappings = {
+        'sex': {0.0: "Female", 1.0: "Male"},
+        'cp': {0.0: "No chest pain", 1.0: "Typical angina", 2.0: "Atypical angina", 3.0: "Non-anginal pain"},
+        'fbs': {0.0: "Fasting blood sugar <= 120", 1.0: "Fasting blood sugar > 120"},
+        'restecg': {0.0: "Normal", 1.0: "ST-T wave abnormality", 2.0: "Left ventricular hypertrophy"},
+        'exang': {0.0: "No exercise induced angina", 1.0: "Exercise induced angina"},
+        'slope': {0.0: "Upward slope", 1.0: "Flat slope", 2.0: "Downward slope"},
+        'thal': {0.0: "Normal", 1.0: "Fixed defect", 2.0: "Reversible defect"},
+        'num': {0.0: "No heart disease", 1.0: "Low-level Heart disease",
+                2.0: "Mid-level heart disease", 3.0: "High level heart disease", 4.0: "Severe heart disease"}
+    }
+    # Flatten the axes array for easier iteration
+    axes = axes.flatten()
+
+    # Loop over each column and create a bar plot in each subplot
+    for i, column in enumerate(df_for_bar_chart.columns):
+        sns.countplot(x=column, data=df_for_bar_chart, ax=axes[i])
+
+        if column in label_mappings:
+            axes[i].set_xticklabels([label_mappings[column].get(val, val) for val in axes[i].get_xticks()],
+                                    rotation=45, size=12, horizontalalignment='right')
+
+        axes[i].set_title(f'Bar Chart for {column}')
+
+
+    # Adjust layout
+    plt.tight_layout()
+    plt.savefig('images/bar_chart_matrix.png')
 
 
 
-        plt.close()
-
-
-
-
-data = pd.read_csv('cleaned_cleveland.csv',index_col=[0])
+data = pd.read_csv('cleaned_cleveland.csv')
 # Firstly, we load in the data into a dataframe.
 
-data = normalize_data(data)
+bar_chart_matrix(data)
 
-boxplot(data)
