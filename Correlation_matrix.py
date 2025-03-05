@@ -117,6 +117,5 @@ def boxplot(df):
 data = pd.read_csv('cleaned_cleveland.csv',index_col=[0])
 # Firstly, we load in the data into a dataframe.
 
-data = normalize_data(data)
-
-boxplot(data)
+for i in data.columns:
+    print(data[i].unique())
