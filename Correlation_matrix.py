@@ -105,6 +105,7 @@ def continuous_scatter_with_hue(df):
     plt.savefig('images/continuous_scatter_with_hue.png')
 
 
+
 def bar_chart_matrix(df):
     df_for_bar_chart = df[['sex', 'cp', 'fbs', 'restecg', 'exang', 'slope', 'thal', 'num']]
 
@@ -135,12 +136,6 @@ def bar_chart_matrix(df):
                                     rotation=45, size=12, horizontalalignment='right')
 
         axes[i].set_title(f'Bar Chart for {column}')
-
-
-    # Adjust layout
-    plt.tight_layout()
-    plt.savefig('images/bar_chart_matrix.png')
-
 
 
 data = pd.read_csv('cleaned_cleveland.csv')

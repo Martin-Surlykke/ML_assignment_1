@@ -18,11 +18,19 @@ import Correlation_matrix as cm
 data = pd.read_csv('cleaned_cleveland.csv')
 
 
+
+relevant_vals=cm.extract_relevant_vals(data)
+print(relevant_vals.head())
+data = relevant_vals
+
 #Saving the amount of observations
 N = len(data)
 
 #Saving the "num" as the class label
+
 y = data["num"]
+C = len(y.unique())  
+
 
 #Converting the class label to binary
 y_binary = y.apply(lambda x: 1 if x > 0 else 0)
@@ -38,10 +46,21 @@ C = len(y_binary.unique())
 print("C",C)
 print("y",y)
 print("y done")
+
+#First we apply log transformation
+data["ca"] = np.log(data["ca"]+1)
+data["oldpeak"] = np.log(data["oldpeak"]+1)
+print("log tranformation applied on Ca and Oldpeak")
 #standardizing the data (or normalizing it?)
 # Subtract mean collumn value from each element in each collumn
-stand_data = cm.normalize_data(data)
-stand_data = cm.extract_relevant_vals(stand_data)
+stand_data= cm.normalize_data(data)
+
+
+print("stand_describe")
+print(stand_data.describe())
+
+print("N",N)
+print("stand_data", stand_data)
 
 mean_stand_data = stand_data.mean(axis=0)
 print("mean_stand_data")
@@ -116,6 +135,10 @@ plt.ylabel("PC2")
 plt.legend()
 plt.savefig('images/PCA_heart_disease_data.png')
 
+print("PCA done")
+
+plt.savefig('images/PCA_heart_disease_data.png')
+
 # plot 3D PCA of the data
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
@@ -128,7 +151,7 @@ ax.set_xlabel("PC1")
 ax.set_ylabel("PC2")
 ax.set_zlabel("PC3")
 # change the viewing angle
-ax.view_init(elev=0, azim=270)
+ax.view_init(elev=0, azim=240)
 
 plt.legend()
 plt.savefig('images/PCA_heart_disease_data_3D_directions.png')
