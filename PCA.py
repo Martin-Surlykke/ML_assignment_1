@@ -12,10 +12,14 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy.linalg import svd
+<<<<<<< Updated upstream
 from Correlation_matrix import * #extract_relevant_vals
 
 
 
+=======
+import Correlation_matrix as cm
+>>>>>>> Stashed changes
 
 # read the data and create a dataframe using pandas
 data = pd.read_csv('cleaned_cleveland.csv')
@@ -28,17 +32,41 @@ data = relevant_vals
 N = len(data)
 
 #Saving the "num" as the class label
+<<<<<<< Updated upstream
 y = data["num"] 
 #Saving the diffirent categories of the class label
+=======
+y= data["num"].apply(lambda x: 1 if x > 0 else 0)
+
+y_binary = y.copy()
+
+for row in y_binary:
+    if row > 0:
+        y_binary = y_binary.replace(row, 1)
+
+#For PCA we dont include the num attribute
+stand_data = data.drop(columns = ["num"])
+#Savinf the diffirent categories of the class label
+>>>>>>> Stashed changes
 C = len(y.unique())  
 
 
 print("C",C)
 print("y",y)
 print("y done")
+
+#First we apply log transformation 
+data["ca"] = np.log(data["ca"]+1)
+data["oldpeak"] = np.log(data["oldpeak"]+1)
+print("log tranformation applied on Ca and Oldpeak")
 #standardizing the data (or normalizing it?)
 # Subtract mean collumn value from each element in each collumn
-stand_data=data.sub(data.mean(axis=0), axis=1)
+stand_data= cm.normalize_data(data)
+
+
+print("stand_describe")
+print(stand_data.describe())
+
 print("N",N)
 print("stand_data", stand_data)
 
@@ -72,7 +100,6 @@ plt.grid()
 plt.savefig('images/Variance_explained_by_principal_components.png')
  
 #PCA of first and second principal component 
-
 # Project the centered data onto principal component space
 Z = stand_data @ V
 
@@ -84,12 +111,16 @@ j = 1
 # Plot PCA of the data
 f = plt.figure()
 plt.title("Heart Disease data: PCA")
-for c in np.unique(y): 
-    class_mask = (y == c).to_numpy()  
+for c in np.unique(y_binary): 
+    class_mask = (y_binary == c).to_numpy()  
     plt.plot(Z.loc[class_mask, 0], Z.loc[class_mask, 1], "o", alpha=0.5, label=f"Class {c}")
 plt.xlabel("PC1")
 plt.ylabel("PC2")
 plt.legend()
+<<<<<<< Updated upstream
 plt.savefig('images/PCA_heart_disease_data.png')
 
 print("PCA done")
+=======
+plt.savefig('images/PCA_heart_disease_data_binary_wrong.png')
+>>>>>>> Stashed changes

@@ -19,11 +19,22 @@ print("Amount of missing values in the different attributes", (df == "?").sum())
 #Handling missing values by applying mode impuation 
 df["ca"] = df["ca"].replace("?", df["ca"].mode()[0])
 df["thal"] = df["thal"].replace("?", df["thal"].mode()[0])
+#making attribute float64
+df["ca"] = pd.to_numeric(df["ca"], errors="coerce")  
+df["cp"] = pd.to_numeric(df["cp"], errors="coerce")
+df["thal"] = pd.to_numeric(df["thal"], errors="coerce")  
+
+# apply replacements
+df["cp"] = df["cp"].replace({4: 0})
+df["thal"] = df["thal"].replace({3: 0, 6: 1, 7: 2})
+
+print("ny")
 print("most common value in ca = ",df["ca"].mode()[0])
 print("most common value in thal =",df["thal"].mode()[0])
 #Checking that there is no longer any missing values in the attribues
 print("Amount of missing values in the different attributes after imputation", (df == "?").sum())
 
+<<<<<<< Updated upstream
 #Checking the data types of the different attributes and insuring they are all float64
 print("datatype for collumn that hasent been imputed: oldpeak type:", df["oldpeak"].dtype)
 #checing the imputed columns data type
@@ -35,6 +46,9 @@ df["ca"] = pd.to_numeric(df["ca"], errors="coerce")
 df["thal"] = pd.to_numeric(df["thal"], errors="coerce")  
 print("ca new type", df["ca"].dtype)  
 print("thal new type", df["thal"].dtype)
+=======
+
+>>>>>>> Stashed changes
 
 
 
