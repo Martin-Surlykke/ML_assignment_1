@@ -106,7 +106,7 @@ def continuous_scatter_with_hue(df):
 
 
 
-data = pd.read_csv('cleaned_cleveland.csv',index_col=[0])
+data = pd.read_csv('cleaned_cleveland.csv')
 # Firstly, we load in the data into a dataframe.
 
 for i in data.columns:

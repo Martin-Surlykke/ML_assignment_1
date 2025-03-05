@@ -17,6 +17,8 @@ import Correlation_matrix as cm
 # read the data and create a dataframe using pandas
 data = pd.read_csv('cleaned_cleveland.csv')
 
+
+
 relevant_vals=cm.extract_relevant_vals(data)
 print(relevant_vals.head())
 data = relevant_vals
@@ -125,8 +127,8 @@ plt.savefig('images/PCA_heart_disease_data_binary_directions.png')
 # Plot PCA of the data
 f = plt.figure()
 plt.title("Heart Disease data: PCA")
-for c in np.unique(y_binary):
-    class_mask = (y_binary == c).to_numpy()
+for c in np.unique(y):
+    class_mask = (y == c).to_numpy()
     plt.plot(Z.loc[class_mask, 0], Z.loc[class_mask, 1], "o", alpha=0.5, label=f"Class {c}")
 plt.xlabel("PC1")
 plt.ylabel("PC2")
@@ -149,7 +151,7 @@ ax.set_xlabel("PC1")
 ax.set_ylabel("PC2")
 ax.set_zlabel("PC3")
 # change the viewing angle
-ax.view_init(elev=0, azim=270)
+ax.view_init(elev=0, azim=240)
 
 plt.legend()
 plt.savefig('images/PCA_heart_disease_data_3D_directions.png')
