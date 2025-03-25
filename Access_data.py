@@ -51,9 +51,6 @@ plt.tight_layout()
 df.hist()
 plt.savefig('histogram_attributes.png')
 
-
-df = df[["age","trestbps","chol","thalach","oldpeak"]]
-
 plt.figure(figsize=(12,7))
 plt.suptitle('Histogram of the different attributes', fontsize=16)
 
@@ -61,17 +58,6 @@ n_attributes = df.shape[1]
 
 n_rows = 1
 n_cols = 5
-
-
-for i, column in enumerate(df.columns):
-    plt.subplot(n_rows, n_cols, i + 1)
-    df[column].hist(bins=15, color='skyblue', edgecolor='black', linewidth=1.5)
-    plt.title(column)
-    plt.grid(False)
-plt.tight_layout(rect=[0, 0, 1, 1])
-
-plt.savefig('histogram_attributes_matrix.png', dpi=300)
-
 
 # We save the cleaned data to a new csv file
 df.to_csv('cleaned_cleveland.csv', index = False)
